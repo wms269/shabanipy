@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from lmfit.models import LinearModel
 
+from shabanipy.utils.np_utils import scalar_if_0d
 from .utils import compute_voltage_offset, extract_switching_current
 
 
@@ -180,25 +181,16 @@ def analyse_vi_curve(
                     )
                 )
                 aux = volt[mask]
-                ax.set_ylim((np.min(aux[mask]) * 1e3, np.max(aux[mask]) * 1e3,))
+                ax.set_ylim((np.min(aux) * 1e3, np.max(aux) * 1e3,))
                 ax.set_xlabel("Bias current (µA)")
                 ax.set_ylabel("Voltage drop (mV)")
 
-    if current_bias.ndim == 1:
-        offset = float(offset)
-        rn_cold = float(rn_cold)
-        rn_hot = float(rn_hot)
-        ic_cold = float(ic_cold)
-        ic_hot = float(ic_hot)
-        iexe_cold = float(iexe_cold)
-        iexe_hot = float(iexe_hot)
-
     return (
-        offset,
-        rn_cold,
-        rn_hot,
-        ic_cold,
-        ic_hot,
-        iexe_cold,
-        iexe_hot,
+        scalar_if_0d(offset),
+        scalar_if_0d(rn_cold),
+        scalar_if_0d(rn_hot),
+        scalar_if_0d(ic_cold),
+        scalar_if_0d(ic_hot),
+        scalar_if_0d(iexe_cold),
+        scalar_if_0d(iexe_hot),
     )

@@ -37,7 +37,7 @@ def compute_voltage_offset(
 
     Returns
     -------
-    offset : Union
+    offset : Union[float, np.ndarray]
         Offset on the measured voltage.
 
     """
